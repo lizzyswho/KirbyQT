@@ -1,7 +1,20 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.uic import loadUi
-from PyQt6.QtWidgets import QDialog, QApplication, QWidget
-import os, sys, sqlite3
+from PyQt6.QtWidgets import QDialog, QApplication, QLineEdit
+from PyQt6.QtSql import QSqlDatabase, QSqlQuery
+import os, sys
+
+# Criar a aplicação Qt primeiro
+app = QtWidgets.QApplication(sys.argv)  # Inicializa o ambiente Qt
+
+# Criar conexão com o banco de dados
+
+db = QSqlDatabase.addDatabase("QSQLITE")  # Corrigindo o driver
+
+db.setDatabaseName("shopData.db")  # Nome do banco de dados
+
+if not db.open():
+    print("Erro ao conectar ao banco de dados:", db.lastError().text())
 
 script_dir = os.path.dirname(os.path.abspath(__file__))  # Obtém o diretório do script
 icon_path = os.path.join(script_dir, "Icon")  # Caminho da pasta de ícones
@@ -9,53 +22,53 @@ icon_path = os.path.join(script_dir, "Icon")  # Caminho da pasta de ícones
 class LoginScreen(QDialog):
     def __init__(self):
         super(LoginScreen, self).__init__()
-        loadUi("login.ui", self)  # Certifique-se de que login.ui está no diretório correto
+        loadUi("login.ui", self)  
 
         # Conectar botão de login à função de troca de tela
         self.loginButton.clicked.connect(self.goToMenu)
-        icon = QtGui.QIcon(os.path.join(icon_path, "login.png"))  # Ícone corrigido
+        icon = QtGui.QIcon(os.path.join(icon_path, "login.png"))  
         self.loginButton.setIcon(icon)
         self.loginButton.setIconSize(QtCore.QSize(40, 40))
-        self.loginButton.setObjectName("exitButton")
-
+        
+        # Esconder a senha
+        self.linePassword.setEchoMode(QLineEdit.EchoMode.Password)
 
     def goToMenu(self):
-        menu = MenuScreen()
-        widget.addWidget(menu)  # Adiciona a tela do menu ao QStackedWidget
-        widget.setCurrentWidget(menu)  # Troca para a tela do menu
+        user = self.lineUser.text()
+        password = self.linePassword.text()
 
+        if len(user) == 0 or len(password) == 0:
+            self.labelWrong.setText("Por favor, preencha todos os campos!")
+            return  # Sai da função se algum campo estiver vazio
+
+        if not db.isOpen():
+            self.labelWrong.setText("Erro na conexão com o banco de dados!")
+            return
+
+        query = QSqlQuery()
+        query.prepare("SELECT * FROM login_info WHERE username = :user")
+        query.bindValue(":user", user)
+
+        if query.exec() and query.first():  # Executa a query e verifica se há resultado
+            stored_password = query.value(1)  # Supondo que a senha esteja na segunda coluna (índice 1)
+
+            if stored_password == password:
+                print("Logado com sucesso!")
+                self.labelWrong.setText("")
+                menu = MenuScreen()
+                widget.addWidget(menu)  
+                widget.setCurrentWidget(menu)  
+            else:
+                self.labelWrong.setText("Usuário ou senha inválida!")
+        else:
+            self.labelWrong.setText("Usuário ou senha inválida!")
 
 class MenuScreen(QDialog):
     def __init__(self):
         super(MenuScreen, self).__init__()
-        loadUi("menu.ui", self)  # Certifique-se de que menu.ui está no diretório correto
-
-        # Conectar botão de Cadastro
-        icon = QtGui.QIcon(os.path.join(icon_path, "signUp.png"))  # Ícone corrigido
-        self.signButton.setIcon(icon)
-        self.signButton.setIconSize(QtCore.QSize(40, 40))
-        self.signButton.setObjectName("signButton")
-
-        # Conectar botão de Pesquisa
-        icon = QtGui.QIcon(os.path.join(icon_path, "search.png"))  # Ícone corrigido
-        self.searchButton.setIcon(icon)
-        self.searchButton.setIconSize(QtCore.QSize(40, 40))
-        self.searchButton.setObjectName("searchButton")
-
-        # Conectar botão de Sobre
-        icon = QtGui.QIcon(os.path.join(icon_path, "about.png"))  # Ícone corrigido
-        self.aboutButton.setIcon(icon)
-        self.aboutButton.setIconSize(QtCore.QSize(40, 40))
-        self.aboutButton.setObjectName("aboutButton")
-
-        # Conectar botão de Saída
-        icon = QtGui.QIcon(os.path.join(icon_path, "exit.png"))  # Ícone corrigido
-        self.exitButton.setIcon(icon)
-        self.exitButton.setIconSize(QtCore.QSize(40, 40))
-        self.exitButton.setObjectName("exitButton")
+        loadUi("menu.ui", self)  
 
 # Configuração principal do aplicativo
-app = QtWidgets.QApplication(sys.argv)
 widget = QtWidgets.QStackedWidget()
 
 # Criando a tela inicial (Login)
@@ -66,5 +79,5 @@ widget.addWidget(login_screen)
 widget.setFixedHeight(480)
 widget.setFixedWidth(640)
 
-widget.show()  # Exibe a primeira tela (Login)
+widget.show()  
 sys.exit(app.exec())

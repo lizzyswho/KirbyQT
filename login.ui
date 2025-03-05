@@ -141,6 +141,23 @@ color: rgba(209, 107, 165, 255);</string>
      <string>Senha</string>
     </property>
    </widget>
+   <widget class="QLabel" name="labelWrong">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>320</y>
+      <width>251</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: red;
+font: 8pt &quot;Noto Sans&quot;;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>
