@@ -103,8 +103,13 @@ background-color: rgba(209, 107, 165, 255);</string>
     </property>
     <property name="icon">
      <iconset theme="QIcon::ThemeIcon::DocumentPrintPreview">
+      <normaloff>Icon/search.png</normaloff>
       <normalon>Icon/search.png</normalon>
-     </iconset>
+      <disabledoff>Icon/search.png</disabledoff>
+      <disabledon>Icon/search.png</disabledon>
+      <activeoff>Icon/search.png</activeoff>
+      <activeon>Icon/search.png</activeon>
+      <selectedoff>Icon/search.png</selectedoff>Icon/search.png</iconset>
     </property>
     <property name="iconSize">
      <size>

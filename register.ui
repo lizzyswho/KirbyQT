@@ -42,11 +42,11 @@ background-color: qlineargradient(spread:pad, x1:0.073, y1:0.128341, x2:1, y2:1,
      <string>REGISTRAR</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="registerButton">
+   <widget class="QPushButton" name="signButton">
     <property name="geometry">
      <rect>
-      <x>240</x>
-      <y>360</y>
+      <x>180</x>
+      <y>350</y>
       <width>121</width>
       <height>61</height>
      </rect>
@@ -301,6 +301,45 @@ border-radius: 10px;</string>
     </property>
     <property name="text">
      <string>Preço</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="backButton">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>350</y>
+      <width>121</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius: 10px;
+border-color: rgb(255, 255, 255);
+background-color: rgba(209, 107, 165, 255);
+</string>
+    </property>
+    <property name="text">
+     <string>VOLTAR</string>
+    </property>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::InsertImage">
+      <normaloff>Icon/back.png</normaloff>
+      <normalon>Icon/back.png</normalon>
+      <disabledoff>Icon/back.png</disabledoff>
+      <disabledon>Icon/back.png</disabledon>
+      <activeoff>Icon/back.png</activeoff>
+      <activeon>Icon/back.png</activeon>
+      <selectedoff>Icon/back.png</selectedoff>
+      <selectedon>Icon/back.png</selectedon>Icon/back.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>40</width>
+      <height>40</height>
+     </size>
     </property>
    </widget>
   </widget>

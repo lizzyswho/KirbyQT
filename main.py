@@ -68,6 +68,54 @@ class MenuScreen(QDialog):
         super(MenuScreen, self).__init__()
         loadUi("menu.ui", self)  
 
+        # Ligação com os registros
+        self.signButton.clicked.connect(self.goToRegister)
+
+
+        # Ícones dos botões
+
+        icon = QtGui.QIcon(os.path.join(icon_path, "signUp.png"))  
+        self.signButton.setIcon(icon)
+        self.signButton.setIconSize(QtCore.QSize(40, 40))
+
+        icon = QtGui.QIcon(os.path.join(icon_path, "search.png"))  
+        self.searchButton.setIcon(icon)
+        self.searchButton.setIconSize(QtCore.QSize(40, 40))
+
+        icon = QtGui.QIcon(os.path.join(icon_path, "about.png"))  
+        self.aboutButton.setIcon(icon)
+        self.aboutButton.setIconSize(QtCore.QSize(40, 40))
+
+        icon = QtGui.QIcon(os.path.join(icon_path, "exit.png"))  
+        self.exitButton.setIcon(icon)
+        self.exitButton.setIconSize(QtCore.QSize(40, 40))
+
+    def goToRegister(self):
+        menu = RegisterScreen()
+        widget.addWidget(menu)  
+        widget.setCurrentWidget(menu)
+
+class RegisterScreen(QDialog):
+    def __init__(self):
+        super(RegisterScreen, self).__init__()
+        loadUi("register.ui", self)
+
+        self.backButton.clicked.connect(self.goToMenu)
+
+        # Ícones
+        icon = QtGui.QIcon(os.path.join(icon_path, "signUp.png"))  
+        self.signButton.setIcon(icon)
+        self.signButton.setIconSize(QtCore.QSize(40, 40))
+        icon = QtGui.QIcon(os.path.join(icon_path, "back.png"))  
+        self.backButton.setIcon(icon)
+        self.backButton.setIconSize(QtCore.QSize(40, 40))
+
+    def goToMenu(self):
+        menu = MenuScreen()
+        widget.addWidget(menu)  
+        widget.setCurrentWidget(menu)
+
+
 # Configuração principal do aplicativo
 widget = QtWidgets.QStackedWidget()
 
