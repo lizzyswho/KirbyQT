@@ -101,6 +101,7 @@ class RegisterScreen(QDialog):
         loadUi("register.ui", self)
 
         self.backButton.clicked.connect(self.goToMenu)
+        self.signButton.clicked.connect(self.Register)
 
         # Ícones
         icon = QtGui.QIcon(os.path.join(icon_path, "signUp.png"))  
@@ -109,6 +110,54 @@ class RegisterScreen(QDialog):
         icon = QtGui.QIcon(os.path.join(icon_path, "back.png"))  
         self.backButton.setIcon(icon)
         self.backButton.setIconSize(QtCore.QSize(40, 40))
+
+    def Register(self):
+        name = self.lineName.text()
+        type = self.comboBoxType.currentText()  # Corrigido para obter o texto selecionado
+        fit = self.spinBoxFit.value()  # Obtém o valor inteiro correto
+        stock = self.spinBoxStock.value()  # Obtém o valor inteiro correto
+        price = self.doubleSpinBoxPrice.value()  # Obtém o valor flutuante correto
+
+    # Verificando qual rádio está marcado
+        if self.radioButtonF.isChecked():
+            gender = "F"
+        elif self.radioButtonM.isChecked():
+            gender = "M"
+        elif self.radioButtonX.isChecked():
+            gender = "X"
+        else:
+            gender = None  # Caso nenhum esteja selecionado
+
+        # Verifica se todos os campos obrigatórios estão preenchidos
+        if not name or not type or not gender or fit <= 0 or stock < 0 or price <= 0:
+            self.labelWrong.setText("Por favor, preencha todos os campos corretamente!")
+            return
+
+        if not db.isOpen():
+            self.labelWrong.setText("Erro na conexão com o banco de dados!")
+            return
+
+        # Inserindo no banco de dados
+        query = QSqlQuery()
+        query.prepare("""
+            INSERT INTO stock_info (Name, Type, Gender, Fit, Stock, Price)
+            VALUES (:name, :type, :gender, :fit, :stock, :price)
+            """)
+    
+        query.bindValue(":name", name)
+        query.bindValue(":type", type)
+        query.bindValue(":gender", gender)
+        query.bindValue(":fit", fit)
+        query.bindValue(":stock", stock)
+        query.bindValue(":price", price)
+
+        if query.exec():
+            print("Registro inserido com sucesso!")
+            self.labelWrong.setText("Cadastro realizado com sucesso!")
+        else:
+            print("Erro ao inserir no banco de dados:", query.lastError().text())
+            self.labelWrong.setText("Erro ao cadastrar. Tente novamente.")
+
 
     def goToMenu(self):
         menu = MenuScreen()

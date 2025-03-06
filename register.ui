@@ -98,23 +98,6 @@ color: rgba(209, 107, 165, 255);</string>
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="labelWrong">
-    <property name="geometry">
-     <rect>
-      <x>180</x>
-      <y>320</y>
-      <width>31</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: red;
-font: 8pt &quot;Noto Sans&quot;;</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
@@ -340,6 +323,23 @@ background-color: rgba(209, 107, 165, 255);
       <width>40</width>
       <height>40</height>
      </size>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelWrong">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>420</y>
+      <width>251</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: red;
+font: 8pt &quot;Noto Sans&quot;;</string>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>
