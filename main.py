@@ -90,6 +90,11 @@ class MenuScreen(QDialog):
         icon = QtGui.QIcon(os.path.join(icon_path, "exit.png"))  
         self.exitButton.setIcon(icon)
         self.exitButton.setIconSize(QtCore.QSize(40, 40))
+        self.exitButton.clicked.connect(self.selfDestruct)
+    
+    def selfDestruct(self):
+        print("É perigoso ir sozinho...")
+        exit()
 
     def goToRegister(self):
         menu = RegisterScreen()
