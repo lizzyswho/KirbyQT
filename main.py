@@ -70,6 +70,7 @@ class MenuScreen(QDialog):
 
         # Ligação com os registros
         self.signButton.clicked.connect(self.goToRegister)
+        self.searchButton.clicked.connect(self.goToSearch)
 
 
         # Ícones dos botões
@@ -93,6 +94,11 @@ class MenuScreen(QDialog):
     def goToRegister(self):
         menu = RegisterScreen()
         widget.addWidget(menu)  
+        widget.setCurrentWidget(menu)
+
+    def goToSearch(self):
+        menu = SearchScreen()
+        widget.addWidget(menu)
         widget.setCurrentWidget(menu)
 
 class RegisterScreen(QDialog):
@@ -163,6 +169,69 @@ class RegisterScreen(QDialog):
         menu = MenuScreen()
         widget.addWidget(menu)  
         widget.setCurrentWidget(menu)
+
+
+class SearchScreen(QDialog):
+    def __init__(self):
+        super(SearchScreen, self).__init__()
+        loadUi("search.ui", self)
+
+        self.searchButton.clicked.connect(self.Search)
+        self.backButton.clicked.connect(self.goToMenu)
+
+        # Ícones
+        icon = QtGui.QIcon(os.path.join(icon_path, "search.png"))  
+        self.searchButton.setIcon(icon)
+        self.searchButton.setIconSize(QtCore.QSize(40, 40))
+        icon = QtGui.QIcon(os.path.join(icon_path, "back.png"))  
+        self.backButton.setIcon(icon)
+        self.backButton.setIconSize(QtCore.QSize(40, 40))
+
+    def Search(self):
+        # Obtém os valores do campo de pesquisa e do combobox
+        name = self.lineSearch.text()
+
+        # Verifica se o banco de dados está aberto
+        if not db.isOpen():
+            print("Erro na conexão com o banco de dados!")
+            return
+
+        query = QSqlQuery()
+        query.prepare("""
+            SELECT Name, Type, Gender, Fit, Stock, Price FROM stock_info
+            WHERE Name = :name
+        """)
+
+        query.bindValue(":name", name)
+
+        if query.exec():
+            results = []  # Lista para armazenar os resultados formatados
+        
+            while query.next():  # Percorre todas as linhas retornadas
+                name = query.value(0)  # Nome
+                type = query.value(1)  # Tipo
+                gender = query.value(2)  # Gênero
+                fit = query.value(3)  # Fit
+                stock = query.value(4)  # Estoque
+                price = query.value(5)  # Preço
+
+                # Formata os dados e adiciona à lista
+                results.append(f"Nome: {name}, Tipo: {type}, Gênero: {gender}, Fit: {fit}, Estoque: {stock}, Preço: R$ {price:.2f}")
+
+            if results:
+                self.textBrowser.setText("\n".join(results))  # Exibe os resultados formatados
+            else:
+                self.textBrowser.setText("Nenhum resultado encontrado.")
+
+        else:
+            print("Erro ao procurar no banco de dados:", query.lastError().text())
+
+    def goToMenu(self):
+        menu = MenuScreen()
+        widget.addWidget(menu)  
+        widget.setCurrentWidget(menu)
+
+
 
 
 # Configuração principal do aplicativo

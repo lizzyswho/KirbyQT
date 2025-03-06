@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Login</string>
+   <string>Pesquisar</string>
   </property>
   <widget class="QWidget" name="bgWidget" native="true">
    <property name="geometry">
@@ -29,9 +29,9 @@ background-color: qlineargradient(spread:pad, x1:0.073, y1:0.128341, x2:1, y2:1,
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>240</x>
+      <x>180</x>
       <y>60</y>
-      <width>271</width>
+      <width>261</width>
       <height>71</height>
      </rect>
     </property>
@@ -39,14 +39,14 @@ background-color: qlineargradient(spread:pad, x1:0.073, y1:0.128341, x2:1, y2:1,
      <string notr="true">font: 36pt &quot;Monospace&quot;;</string>
     </property>
     <property name="text">
-     <string>LOGIN</string>
+     <string>PESQUISAR</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="loginButton">
+   <widget class="QPushButton" name="searchButton">
     <property name="geometry">
      <rect>
-      <x>240</x>
-      <y>360</y>
+      <x>180</x>
+      <y>190</y>
       <width>121</width>
       <height>61</height>
      </rect>
@@ -61,18 +61,18 @@ background-color: rgba(209, 107, 165, 255);
 </string>
     </property>
     <property name="text">
-     <string>ENTRAR</string>
+     <string>BUSCAR</string>
     </property>
     <property name="icon">
      <iconset theme="QIcon::ThemeIcon::InsertImage">
-      <normaloff>Icon/login.png</normaloff>
-      <normalon>Icon/login.png</normalon>
-      <disabledoff>Icon/login.png</disabledoff>
-      <disabledon>Icon/login.png</disabledon>
-      <activeoff>Icon/login.png</activeoff>
-      <activeon>Icon/login.png</activeon>
-      <selectedoff>Icon/login.png</selectedoff>
-      <selectedon>Icon/login.png</selectedon>Icon/login.png</iconset>
+      <normaloff>Icon/search.png</normaloff>
+      <normalon>Icon/search.png</normalon>
+      <disabledoff>Icon/search.png</disabledoff>
+      <disabledon>Icon/search.png</disabledon>
+      <activeoff>Icon/search.png</activeoff>
+      <activeon>Icon/search.png</activeon>
+      <selectedoff>Icon/search.png</selectedoff>
+      <selectedon>Icon/search.png</selectedon>Icon/search.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -81,11 +81,11 @@ background-color: rgba(209, 107, 165, 255);
      </size>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineUser">
+   <widget class="QLineEdit" name="lineSearch">
     <property name="geometry">
      <rect>
       <x>180</x>
-      <y>200</y>
+      <y>150</y>
       <width>251</width>
       <height>32</height>
      </rect>
@@ -98,64 +98,58 @@ color: rgba(209, 107, 165, 255);</string>
      <string/>
     </property>
    </widget>
-   <widget class="QLineEdit" name="linePassword">
+   <widget class="QPushButton" name="backButton">
     <property name="geometry">
      <rect>
-      <x>180</x>
-      <y>280</y>
-      <width>251</width>
-      <height>32</height>
+      <x>310</x>
+      <y>190</y>
+      <width>121</width>
+      <height>61</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);
-color: rgba(209, 107, 165, 255);</string>
+     <string notr="true">border-radius: 10px;
+border-color: rgb(255, 255, 255);
+background-color: rgba(209, 107, 165, 255);
+</string>
     </property>
     <property name="text">
-     <string/>
+     <string>VOLTAR</string>
+    </property>
+    <property name="icon">
+     <iconset theme="QIcon::ThemeIcon::InsertImage">
+      <normaloff>Icon/back.png</normaloff>
+      <normalon>Icon/back.png</normalon>
+      <disabledoff>Icon/back.png</disabledoff>
+      <disabledon>Icon/back.png</disabledon>
+      <activeoff>Icon/back.png</activeoff>
+      <activeon>Icon/back.png</activeon>
+      <selectedoff>Icon/back.png</selectedoff>
+      <selectedon>Icon/back.png</selectedon>Icon/back.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>40</width>
+      <height>40</height>
+     </size>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>180</x>
-      <y>180</y>
-      <width>58</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Usuário</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QTextBrowser" name="textBrowser">
     <property name="geometry">
      <rect>
       <x>180</x>
       <y>260</y>
-      <width>58</width>
-      <height>18</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Senha</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="labelWrong">
-    <property name="geometry">
-     <rect>
-      <x>180</x>
-      <y>320</y>
-      <width>251</width>
-      <height>18</height>
+      <width>256</width>
+      <height>192</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: red;
-font: 8pt &quot;Noto Sans&quot;;</string>
-    </property>
-    <property name="text">
-     <string/>
+     <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(255, 170, 255);
+border-radius: 10px;</string>
     </property>
    </widget>
   </widget>
