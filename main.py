@@ -71,7 +71,7 @@ class MenuScreen(QDialog):
         # Ligação com os registros
         self.signButton.clicked.connect(self.goToRegister)
         self.searchButton.clicked.connect(self.goToSearch)
-
+        self.aboutButton.clicked.connect(self.goToAbout)
 
         # Ícones dos botões
 
@@ -103,6 +103,11 @@ class MenuScreen(QDialog):
 
     def goToSearch(self):
         menu = SearchScreen()
+        widget.addWidget(menu)
+        widget.setCurrentWidget(menu)
+
+    def goToAbout(self):
+        menu = AboutScreen()
         widget.addWidget(menu)
         widget.setCurrentWidget(menu)
 
@@ -236,6 +241,22 @@ class SearchScreen(QDialog):
         widget.addWidget(menu)  
         widget.setCurrentWidget(menu)
 
+class AboutScreen(QDialog):
+    def __init__(self):
+        super(AboutScreen, self).__init__()
+        loadUi("about.ui", self)
+
+        self.backButton.clicked.connect(self.goToMenu)
+
+        # Ícones
+        icon = QtGui.QIcon(os.path.join(icon_path, "back.png"))  
+        self.backButton.setIcon(icon)
+        self.backButton.setIconSize(QtCore.QSize(40, 40))
+
+    def goToMenu(self):
+        menu = MenuScreen()
+        widget.addWidget(menu)  
+        widget.setCurrentWidget(menu)
 
 
 
